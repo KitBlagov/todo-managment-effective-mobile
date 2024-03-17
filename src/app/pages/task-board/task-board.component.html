@@ -1,0 +1,49 @@
+<div class="header">
+  <h3>Todo Managment for Effective Mobile</h3>
+</div>
+<div class="task-board">
+  <div class="navigate">
+    <h2>Доска задач</h2>
+    <button type="button" (click)="goToTaskList()">Вернуться к списку задач</button>
+  </div>
+
+  <div class="filters">
+    <div class="filter">
+      <label for="status-filter">Фильтр по статусу:</label>
+      <select id="status-filter" (change)="filterByStatus($event)">
+        <option value="">Все</option>
+        <option value="Открытая">Открытая</option>
+        <option value="В процессе">В процессе</option>
+        <option value="Тестируется">Тестируется</option>
+        <option value="Выполнена">Выполнена</option>
+      </select>
+    </div>
+    <div class="filter">
+      <label for="executor-filter">Фильтр по исполнителю:</label>
+      <select id="executor-filter" (change)="filterByExecutor($event)">
+        <option value="">Все исполнители</option>
+        <option *ngFor="let executor of executors$ | async" [value]="executor">{{ executor }}</option>
+      </select>
+    </div>
+    <div class="filter">
+      <label for="deadline-filter">Фильтр по дате исполнения:</label>
+      <input id="deadline-filter" type="date" (change)="filterByDeadline($event)" />
+    </div>
+  </div>
+
+  <div class="task-list">
+    <div *ngFor="let task of filteredTasks$ | async" class="task-item">
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+      <div class="meta">
+        <p>Статус: {{ task.status }}</p>
+        <p>Приоритет: {{ task.priority }}</p>
+        <p>Дата исполнения: {{ task.deadline }}</p>
+        <p>Исполнитель: {{ task.executor }}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="(filteredTasks$ | async)?.length === 0" class="empty-message">
+    Нет задач, удовлетворяющих выбранным фильтрам
+  </div>
+</div>

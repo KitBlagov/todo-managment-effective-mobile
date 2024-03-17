@@ -1,0 +1,98 @@
+<div class="header">
+  <h3>Todo Managment for Effective Mobile</h3>
+</div>
+<div class="task-list">
+  <div class="todolist">
+    <h4>Управление задачами</h4>
+    <button type="button" (click)="openSlidePanel()">Добавить</button>
+    <button type="button" (click)="goToTaskBoard()">Доска задач</button>
+  </div>
+  <div class="task">
+    <div *ngFor="let task of tasks" class="task-item">
+      <div class="task-summary" (click)="toggleExpandTask(task.id)">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <p>Статус: {{ task.status }}</p>
+      </div>
+      <div class="additional-info" [class.expanded]="isTaskExpanded(task.id)">
+        <p>Приоритет: {{ task.priority }}</p>
+        <p>Дата исполнения {{ task.deadline }}</p>
+        <p>Исполнитель: {{ task.executor }}</p>
+      </div>
+      <div class="task-actions">
+        <button type="button" (click)="openSlidePanel(task.id)">Просмотр задачи</button>
+        <button type="button" (click)="deleteTask(task.id)">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<slide-panel [headerText]="isEditing ? 'Просмотр задачи' : 'Добавление задачи'" [isOpen]="isSlidePanelOpen"
+  (onClose)="onCloseSlidePanel()">
+  <div>
+    <div class="slide-panel">
+      <form [formGroup]="taskForm" (submit)="submitTask()">
+        <div class="form-group">
+          <label for="title" class="form-label"></label>
+          <input type="text" id="title" class="form-control"
+            [class]="{'invalid': taskForm.get('title')?.hasError('required') && taskForm.get('title')?.touched, 'valid':taskForm.get('title')?.valid}"
+            placeholder="Название" formControlName="title">
+          @if (taskForm.get('title')?.hasError('required') && taskForm.get('title')?.touched) {
+          <span class="form-error">Укажите название</span>
+          }
+        </div>
+        <div class="form-group">
+          <textarea name="" rows="10" class="form-control"
+            [class]="{'invalid': taskForm.get('description')?.hasError('required') && taskForm.get('description')?.touched, 'valid':taskForm.get('description')?.valid}"
+            placeholder="Описание" formControlName="description"></textarea>
+          @if (taskForm.get('description')?.hasError('required') && taskForm.get('description')?.touched) {
+          <span class="form-error">Укажите описание</span>
+          }
+        </div>
+        <div class="form-group">
+          <input type="date" id="deadline" class="form-control"
+            [class]="{'invalid': taskForm.get('deadline')?.hasError('required') && taskForm.get('deadline')?.touched, 'valid':taskForm.get('deadline')?.valid}"
+            placeholder="Срок" formControlName="deadline">
+          @if (taskForm.get('deadline')?.hasError('required') && taskForm.get('deadline')?.touched) {
+          <span class="form-error">Укажите дату исполнения</span>
+          }
+        </div>
+        <div class="form-group">
+          <select id="priority" class="form-select" formControlName="priority">
+            <option value="" disabled selected>Выберите приоритет</option>
+            <option value="Высокий">Высокий</option>
+            <option value="Средний">Средний</option>
+            <option value="Низкий">Низкий</option>
+          </select>
+          @if (taskForm.get('priority')?.hasError('required') && taskForm.get('priority')?.touched) {
+          <span class="form-error">Укажите приоритет</span>
+          }
+        </div>
+        <div class="form-group">
+          <select id="status" class="form-select" formControlName="status">
+            <option value="" disabled selected>Выберите статус</option>
+            <option value="Открытая">Открыта</option>
+            <option value="В процессе">В процессе</option>
+            <option value="Тестируется">Тестируется</option>
+            <option value="Выполнена">Выполнена</option>
+          </select>
+          @if (taskForm.get('status')?.hasError('required') && taskForm.get('status')?.touched) {
+          <span class="form-error">Укажите статус</span>
+          }
+        </div>
+        <div class="form-group">
+          <input type="text" id="executor" class="form-control"
+            [class]="{'invalid': taskForm.get('executor')?.hasError('required') && taskForm.get('executor')?.touched, 'valid':taskForm.get('executor')?.valid}"
+            placeholder="Исполнитель" formControlName="executor">
+          @if (taskForm.get('executor')?.hasError('required') && taskForm.get('executor')?.touched) {
+          <span class="form-error">Укажите исполнителя</span>
+          }
+        </div>
+        <div class="btn-wrapper">
+          <button type="button" (click)="onCloseSlidePanel()">Отменить</button>
+          <button type="submit">{{ isEditing ? 'Редактировать' : 'Подтвердить' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</slide-panel>

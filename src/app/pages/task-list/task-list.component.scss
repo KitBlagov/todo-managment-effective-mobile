@@ -1,0 +1,180 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+.header h3 {
+  margin: 0;
+}
+
+.task-list {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.todolist {
+  background-color: #f4f4f4;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f4f4f4;
+}
+
+.btn-add {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.task {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+.task-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f4f4f4;
+}
+
+.task-item:hover {
+  background-color: #f0f0f0;
+}
+
+.task-summary {
+  padding: 20px;
+}
+
+.task-summary h3 {
+  margin-top: 0;
+  color: #007bff;
+}
+
+@media screen and (max-width: 300px) {
+  .task {
+    grid-template-columns: 1fr;
+  }
+
+  .task-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .task-actions button {
+    margin-bottom: 10px;
+  }
+}
+
+.additional-info {
+  padding: 20px;
+  transition: max-height 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+  display: none;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.additional-info.expanded {
+  max-height: 200px;
+  display: block;
+  margin-top: -30px;
+  margin-bottom: -10px;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 20px 20px;
+}
+
+.slide-panel {
+  background-color: #fff;
+  padding: 20px;
+  width: 100%; /* Изменено на 100% */
+  max-width: 90%; /* Удалено или изменено на auto */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: auto;
+  max-height: 100%;
+
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  margin-bottom: 5px;
+}
+
+.form-control,
+.form-select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-error {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.invalid {
+  border-color: #dc3545 !important;
+}
+
+.valid:not(.ng-touched) {
+  border-color: #ced4da !important;
+}
+
+.valid.ng-touched {
+  border-color: #28a745 !important;
+}
+
+.btn-wrapper {
+  max-width: 95%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+button[type="submit"],
+button[type="button"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background-color: #0056b3;
+}
